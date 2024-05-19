@@ -1,4 +1,3 @@
-// src/components/GoogleSignInButton.js
 import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
 

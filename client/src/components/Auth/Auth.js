@@ -7,7 +7,6 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-// import { GoogleLogin } from "react-google-login";
 import GoogleSignInButton from "../../components/GoogleSignInButton";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useDispatch } from "react-redux";
@@ -54,17 +53,17 @@ const Auth = () => {
     setShowPassword(false);
   };
 
-  const handleSuccess = async (res) => {
+  const googleSuccess = async (res) => {
+    console.log("res", res);
     const result = {
-      name: res.name,
-      email: res.email,
-      picture: res.picture,
-      givenName: res.given_name,
-      familyName: res.family_name,
+      name: res?.name,
+      email: res?.email,
+      picture: res?.picture,
+      givenName: res?.given_name,
+      familyName: res?.family_name,
     };
-    const token = res?.aud;
+    const token = res?.credential; // there's nothing called res?.credential
     try {
-      console.log("my res", res);
       dispatch({ type: "AUTH", data: { result, token } });
       history.push("/");
     } catch (error) {
@@ -72,7 +71,7 @@ const Auth = () => {
     }
   };
 
-  const handleFailure = (error) => {
+  const googleFailure = (error) => {
     console.error("Google Sign-In Failure:", error);
   };
 
@@ -136,8 +135,8 @@ const Auth = () => {
           </Button>
 
           <GoogleSignInButton
-            onSuccess={handleSuccess}
-            onFailure={handleFailure}
+            onSuccess={googleSuccess}
+            onFailure={googleFailure}
           />
           <Grid container justify="flex-end">
             <Grid item>
