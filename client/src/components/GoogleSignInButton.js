@@ -4,9 +4,24 @@ import jwt_decode from "jwt-decode";
 const GoogleSignInButton = ({ onSuccess, onFailure }) => {
   useEffect(() => {
     const handleCredentialResponse = (response) => {
+      console.log("response in google sign in", response);
       if (response.credential) {
         const userObject = jwt_decode(response.credential);
+        userObject.credential = response.credential; // Attach the token to the user object
         onSuccess(userObject);
+        localStorage.setItem(
+          "profile",
+          JSON.stringify({
+            result: {
+              name: userObject.name,
+              email: userObject.email,
+              picture: userObject.picture,
+              givenName: userObject.given_name,
+              familyName: userObject.family_name,
+            },
+            token: response.credential,
+          })
+        );
       } else {
         onFailure("No credential response");
       }

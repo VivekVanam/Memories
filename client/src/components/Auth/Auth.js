@@ -62,7 +62,8 @@ const Auth = () => {
       givenName: res?.given_name,
       familyName: res?.family_name,
     };
-    const token = res?.credential; // there's nothing called res?.credential
+    const token = res?.credential;
+
     try {
       dispatch({ type: "AUTH", data: { result, token } });
       history.push("/");
