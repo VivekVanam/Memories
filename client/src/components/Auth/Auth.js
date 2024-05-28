@@ -14,7 +14,6 @@ import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
 import Input from "./Input";
 import { signup, signin } from "../../actions/auth";
-import Icon from "./Icon";
 
 const Auth = () => {
   const initialState = {
